@@ -1,11 +1,101 @@
-For my stringsorter.c program, first I created struct List which contains parameters entry, which is the node's word, entrySize, which is the size of the word, and struct List * next, which points to the next node in the list.
+//Test case where we have duplicates. 
+./stringsorter "
+Aand
+Aana
+Aand
+Aana
+Anna
+Anna
+"
 
-I used the function ReadDataS, which reads data from argument 1 of argv[] in main and stores each valid word or letter into each free entry of a node in the list.
+Output:
+Aana
+Aana
+Aand
+Aand
+Anna
+Anna
 
-After storing all of the words and/or characters into the entries of the linked list, I implement MSort which groups all the nodes up by twos and if there is a odd node out, it is placed in the next group. The groups of two's become groups of fours which are compared, then they become groups of eights and so on until they return to the size of the original group. Once this is completed, all of the entries are sorted within O(mlogn) time, n is the amount of entries and m is the length of each entry.
+//Test case where we have characters that are not in the alphabet.
+./stringsorter "
+AAAnd3
+aAanagf
+dagdfah   
+ghf  
+ggf36
+ggg7h"
 
-Then I implement PrintList, which takes argument Root node, which points to the first node in the linked list. Print list prints out all entries that are not NULL.
+Output: 
+AAAnd
+aAanagf
+dagdfah
+ggf
+ggg
+ghf
+h
 
-I also created boolean function isLetter, which takes a character argument and returns true if the character is an alphabetical letter, and false if the character is not. Another boolean function, isCap, takes a character argument and returns true if the character is a capital letter, and false if the character is not.
+//Test cast where we have the command key in the argument input.
+./stringsorter "B^GG^V^F^H^J"
+Output:
+B
+F
+GG
+H
+J
+V
 
-The final function that I implemented was called freeList, and it takes argument List*R, which is the first node of the list. I iterate through the list and free each previous list using a while loop, then I finally free the list which points to the final node.
+//Test case where each character has a deliminator on either side
+./stringsorter "1A4f3Q5H6b6m8km0l8"
+Output:
+A
+H
+Q
+b
+f
+km
+l
+m
+
+//Test case where we have multiple seperators.
+./stringsorter "4907340957hI894075093145Hi4036 Hierarchy"
+
+Output: 
+Hi
+Hierarchy
+hI
+
+//0 input test case.
+./stringsorter ""
+
+Output:
+
+//Test case where we have more than one argument.
+./stringsorter "GGG ## d " " 2985y4fdGG GA "
+
+Output: Too many arguments.
+
+//Test case where we only have the first argument.
+./stringsorter
+
+Output: No data to read. 
+
+//Test case where there is one word in the front and the rest are seperators.
+./stringsorter "H145601"
+Output: H
+
+//Test case where there are different sized words of similar letters
+./stringsorter "abcde abc a bc AD A BCDff BDERhhG BDEFHnHL AZ ZZAC ZZAB"
+Output:
+A
+AD
+AZ
+BCDff
+BDEFHnHL
+BDERhhG
+ZZAB
+ZZAC
+a
+abc
+abcde
+bc 
+
